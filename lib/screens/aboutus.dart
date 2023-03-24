@@ -18,56 +18,79 @@ class AboutUsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('About Us'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 300,
-              width: 200,
-              child: Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Flogo.png?alt=media&token=6cc8a95a-383a-4a32-a0d6-03c0206b747b'),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'AbacusPlus Flash',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              'Powered by The Learners Hub',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'Welcome to Abacusplus Flash, a quiz app designed to help students practice abacus. Our app is powered by The Learners Hub organization, which is committed to providing educational resources to students around the world.Our app is designed to make learning abacus fun and engaging. With our quizzes, students can test their knowledge of abacus and practice their skills in a safe and supportive environment. Our goal is to help students build confidence in their abilities and achieve academic success.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16.0),
-            ),
-            const SizedBox(height: 10),
-            Text.rich(
-              TextSpan(
-                text: 'Visit our website ',
-                style: TextStyle(fontSize: 16),
-                children: [
-                  TextSpan(
-                    text: 'https://www.abacusplus.in',
-                    style: TextStyle(
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
-                      color: Colors.blue,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        launchURL();
-                      },
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 300,
+                width: 200,
+                child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Flogo.png?alt=media&token=6cc8a95a-383a-4a32-a0d6-03c0206b747b'),
               ),
-            ),
-          ],
+              SizedBox(height: 16.0),
+              Text(
+                'AbacusPlus Flash',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                'Powered by The Learners Hub',
+                style: TextStyle(fontSize: 16.0),
+              ),
+              SizedBox(height: 16.0),
+              Text.rich(
+                TextSpan(
+                  text: 'Visit our website ',
+                  style: TextStyle(fontSize: 16),
+                  children: [
+                    TextSpan(
+                      text: 'https://www.abacusplus.in',
+                      style: TextStyle(
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () async {
+                          launchURL();
+                        },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Welcome to Abacusplus Flash, a quiz app designed to help students practice abacus. Our app is powered by The Learners Hub organization, which is committed to providing educational resources to students around the world.Our app is designed to make learning abacus fun and engaging. With our quizzes, students can test their knowledge of abacus and practice their skills in a safe and supportive environment. Our goal is to help students build confidence in their abilities and achieve academic success.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16.0),
+              ),
+              const SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  text: 'Visit our website ',
+                  style: TextStyle(fontSize: 16),
+                  children: [
+                    TextSpan(
+                      text: 'https://www.abacusplus.in',
+                      style: TextStyle(
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () async {
+                          launchURL();
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

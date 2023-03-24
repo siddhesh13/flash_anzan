@@ -112,183 +112,192 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Abacus Plus Flash'),
       ),
-      body: Center(
-        child: _isLoading
-            ? const CircularProgressIndicator()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image(
-                    image: NetworkImage(
-                        "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Flogin_family.png?alt=media&token=d4b3d200-8668-447a-beb6-6576237d6b24"),
-                    height: 400,
-                    width: 300,
-                  ),
-                  Container(
-                    height: 50.0,
-                    width: 300,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      gradient: const LinearGradient(colors: [
-                        Color.fromARGB(255, 211, 95, 250),
-                        Color.fromARGB(255, 145, 0, 164),
-                      ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+      body: SingleChildScrollView(
+        child: Center(
+          child: _isLoading
+              ? const CircularProgressIndicator()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image(
+                      image: NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Flogin_family.png?alt=media&token=d4b3d200-8668-447a-beb6-6576237d6b24"),
+                      height: 300,
+                      width: 200,
                     ),
-                    child: ElevatedButton.icon(
-                      icon: const Icon(FontAwesomeIcons.google),
-                      label: const Text('Sign in with Google',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500)),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
-                        shadowColor: Colors.transparent,
+                    Container(
+                      height: 50.0,
+                      width: 300,
+                      decoration: ShapeDecoration(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                            borderRadius: BorderRadius.circular(30.0)),
+                        gradient: const LinearGradient(
+                            colors: [
+                              Color.fromARGB(255, 211, 95, 250),
+                              Color.fromARGB(255, 145, 0, 164),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight),
                       ),
-                      onPressed: () async {
-                        setState(() => _isLoading = true);
-                        try {
-                          UserCredential? userCredential =
-                              await _signInWithGoogle();
-                          if (userCredential?.user != null) {
-                            print('Logged in');
-                            final user = FirebaseAuth.instance.currentUser;
-                            //print(user!.uid);
-                            //print(userCredential?.user?.displayName);
-                            //print(userCredential?.user?.email);
-                            //print(downloadUrl);
-                            // print("${user.displayName}, ${user.email}");
-                            // print("${user.photoURL}");
-                            final userRef = FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(user!.uid);
-                            final userDoc = await userRef.get();
-                            // Now you can access the user's data using the `data()` method on the DocumentSnapshot
-                            final userData = userDoc.data();
-                            // For example, if your user data contains a `name` field, you can access it like this:
-                            final userName = userData!['displayName'];
-                            final email = userData['email'];
-                            final photoUrl = userData['photoUrl'];
-                            final level = userData['level'];
-                            print("level: $level");
-                            //print("$userName, $email");
-                            // ignore: use_build_context_synchronously
-                            final userProvider = Provider.of<UserProvider>(
-                                context,
-                                listen: false);
+                      child: ElevatedButton.icon(
+                        icon: const Icon(FontAwesomeIcons.google),
+                        label: const Text('Sign in with Google',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500)),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        onPressed: () async {
+                          setState(() => _isLoading = true);
+                          try {
+                            UserCredential? userCredential =
+                                await _signInWithGoogle();
+                            if (userCredential?.user != null) {
+                              print('Logged in');
+                              final user = FirebaseAuth.instance.currentUser;
+                              //print(user!.uid);
+                              //print(userCredential?.user?.displayName);
+                              //print(userCredential?.user?.email);
+                              //print(downloadUrl);
+                              // print("${user.displayName}, ${user.email}");
+                              // print("${user.photoURL}");
+                              final userRef = FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user!.uid);
+                              final userDoc = await userRef.get();
+                              // Now you can access the user's data using the `data()` method on the DocumentSnapshot
+                              final userData = userDoc.data();
+                              // For example, if your user data contains a `name` field, you can access it like this:
+                              final userName = userData!['displayName'];
+                              final email = userData['email'];
+                              final photoUrl = userData['photoUrl'];
+                              final level = userData['level'];
+                              print("level: $level");
+                              //print("$userName, $email");
+                              // ignore: use_build_context_synchronously
+                              final userProvider = Provider.of<UserProvider>(
+                                  context,
+                                  listen: false);
 
-// After successful login
-                            final userP = UserModel(
-                                uid: user.uid,
-                                displayName: userName,
-                                email: email,
-                                photoUrl: photoUrl,
-                                level: level);
-                            userProvider.setUser(userP);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => AbacusHomePage(
-                                        /* username: userCredential
-                                            ?.user?.displayName as String,
-                                        email: userCredential?.user?.displayName
-                                            as String,
-                                        //level: userCredential?.user?.level as String,
-                                        photo: downloadUrl,*/
-                                        /* username: userName,
-                                          email: email,
-                                          photo: photoUrl,
-                                          level: level,*/
-                                        )));
+                              // After successful login
+                              final userP = UserModel(
+                                  uid: user.uid,
+                                  displayName: userName,
+                                  email: email,
+                                  photoUrl: photoUrl,
+                                  level: level);
+                              userProvider.setUser(userP);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => AbacusHomePage(
+                                          /* username: userCredential
+                                              ?.user?.displayName as String,
+                                          email: userCredential?.user?.displayName
+                                              as String,
+                                          //level: userCredential?.user?.level as String,
+                                          photo: downloadUrl,*/
+                                          /* username: userName,
+                                            email: email,
+                                            photo: photoUrl,
+                                            level: level,*/
+                                          )));
+                            }
+                          } catch (e) {
+                            print(e.toString());
+                            setState(() => _isLoading = false);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: Text('Error'),
+                                content: Text(e.toString()),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('Close'),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                ],
+                              ),
+                            );
                           }
-                        } catch (e) {
-                          print(e.toString());
-                          setState(() => _isLoading = false);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: Text('Error'),
-                              content: Text(e.toString()),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('Close'),
-                                  onPressed: () => Navigator.of(context).pop(),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                  Container(
-                    height: 50.0,
-                    width: 300,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      gradient: const LinearGradient(colors: [
-                        Color(0xFFFF9945),
-                        Color(0xFFFc6076),
-                      ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                    ),
-                    child: ElevatedButton.icon(
-                      icon: const Icon(Icons.account_circle),
-                      label: const Text('Log In as a Guest',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500)),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
-                        shadowColor: Colors.transparent,
+                    SizedBox(height: 16),
+                    Container(
+                      height: 50.0,
+                      width: 300,
+                      decoration: ShapeDecoration(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(30.0)),
+                        gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFFFF9945),
+                              Color(0xFFFc6076),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight),
+                      ),
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.account_circle),
+                        label: const Text('Log In as a Guest',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500)),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        onPressed: () async {
+                          final userProvider =
+                              Provider.of<UserProvider>(context, listen: false);
+
+                          // After successful login
+                          //final userP = UserModel(uid:"",displayName: "Guest", email:"",
+                          //photoUrl: "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Favatar.jpg?alt=media&token=64ab58be-1567-42a3-be6f-af81de791a1f",
+                          // level:"");
+                          //userProvider.setUser(userP);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AbacusHomePage(
+                                      /* username: "Guest",
+                                        email: "",
+                                        photo:
+                                            "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Favatar.jpg?alt=media&token=64ab58be-1567-42a3-be6f-af81de791a1f",
+                                        level: "",*/
+                                      )));
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        'Powered By: The Learnsers Hub',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 14.0,
                         ),
                       ),
-                      onPressed: () async {
-                        final userProvider =
-                            Provider.of<UserProvider>(context, listen: false);
-
-// After successful login
-//final userP = UserModel(uid:"",displayName: "Guest", email:"",
-                        //photoUrl: "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Favatar.jpg?alt=media&token=64ab58be-1567-42a3-be6f-af81de791a1f",
-                        // level:"");
-//userProvider.setUser(userP);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AbacusHomePage(
-                                    /* username: "Guest",
-                                      email: "",
-                                      photo:
-                                          "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Favatar.jpg?alt=media&token=64ab58be-1567-42a3-be6f-af81de791a1f",
-                                      level: "",*/
-                                    )));
-                      },
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      'Powered By: The Learnsers Hub',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+        ),
       ),
     );
   }
