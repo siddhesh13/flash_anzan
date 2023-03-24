@@ -4,22 +4,24 @@ class UserModel {
   final String uid;
   final String? email;
   final String? displayName;
+  final String? level;
   final String? photoUrl;
 
   UserModel({
     required this.uid,
     this.email,
     this.displayName,
+    this.level,
     this.photoUrl,
   });
 
-  factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    final Map<String, Object>? data = snapshot.data() as Map<String, Object>?;
+  factory UserModel.fromMap(Map<String, dynamic> data) {
     return UserModel(
-      uid: snapshot.id,
-      email: data?['email'] as String?,
-      displayName: data?['displayName'] as String?,
-      photoUrl: data?['photoUrl'] as String?,
+      uid: data['uid'],
+      email: data['email'] as String?,
+      displayName: data['displayName'] as String?,
+      level: data['level'] as String?,
+      photoUrl: data['photoUrl'] as String?,
     );
   }
 }

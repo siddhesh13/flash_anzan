@@ -43,6 +43,13 @@ dependencies:
   cloud_firestore: ^4.4.3
   firebase_storage: ^11.0.14
   http: ^0.13.5
+  google_fonts: ^4.0.3
+  rflutter_alert: ^2.0.4
+  image_picker: ^0.8.7
+  image: ^3.0.2
+  excel: ^2.0.4
+  provider: ^6.0.5
+  url_launcher: ^6.1.10
   
 google_sign_in:
   webClientId: 778212284440-fepvpp0assuf7bvj8cdil82lei7kkbpb.apps.googleusercontent.com
@@ -85,6 +92,29 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+     - family: Patrick Hand
+       fonts:
+         - asset: fonts/PatrickHand-Regular.ttf
+  #       - asset: fonts/PatrickHand-Regualr.ttf
+  #         style: italic
+     - family: Rancho
+       fonts:
+         - asset: fonts/Rancho-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+     - family: Itim
+       fonts:
+         - asset: fonts/Itim-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+     - family: Merienda
+       fonts:
+         - asset: fonts/Merienda-Bold.ttf
+           weight: 700
+         - asset: fonts/Merienda-Regular.ttf
+           weight: 300
+  
   # fonts:
   #   - family: Schyler
   #     fonts:

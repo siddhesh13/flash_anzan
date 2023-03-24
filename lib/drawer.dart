@@ -3,22 +3,27 @@ import 'package:flash_anzan/screens/studentProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:flash_anzan/provider/userProvider.dart';
 
 class TrendingSidebar extends StatelessWidget {
-  final String username;
+  /* final String username;
   final String email;
   final String photo;
-
+  final String level;
   TrendingSidebar(
-      {required this.username, required this.email, required this.photo});
-
+      {required this.username,
+      required this.email,
+      required this.photo,
+      required this.level});
+  */
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final user = FirebaseAuth.instance.currentUser;
 
   Future<void> _handleSignOut(BuildContext context) async {
     await _auth.signOut();
     await _googleSignIn.signOut();
-
     Navigator.pushNamedAndRemoveUntil(
       context,
       '/login',
@@ -28,6 +33,8 @@ class TrendingSidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final userP = userProvider.user;
     return Drawer(
       child: Container(
         color: Colors.white,
@@ -35,34 +42,44 @@ class TrendingSidebar extends StatelessWidget {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: NetworkImage(photo),
-                  ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    username,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    email,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black,
-                    ),
-                  ),
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.purple.shade500,
+                  Colors.purple.shade900,
                 ],
+              )),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 40.0,
+                      backgroundImage: NetworkImage(userP?.photoUrl ??
+                          "https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Favatar.jpg?alt=media&token=64ab58be-1567-42a3-be6f-af81de791a1f"),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      userP?.displayName?.toUpperCase() ?? 'Guest',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 5.0),
+                    Text(
+                      userP?.email ?? '',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             ),
             ListTile(
@@ -74,46 +91,72 @@ class TrendingSidebar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => AbacusHomePage(
-                      email: email,
+                        /* email: email,
                       username: username,
                       photo: photo,
-                    ),
+                      level: level,*/
+                        ),
                   ),
                 );
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
+              leading: const Icon(Icons.dashboard),
               title: Text('Dashboard'),
               onTap: () {
                 // Navigate to home screen
               },
             ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
-              onTap: () {
-                // Navigate to profile screen\
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserProfile(
-                        email: email,
-                        name: username,
-                        photoUrl: photo,
-                      ),
-                    ));
-              },
+            Visibility(
+              visible: (userP?.displayName ?? '').isNotEmpty,
+              child: ListTile(
+                leading: const Icon(Icons.add_chart_rounded),
+                title: Text('Leaderboard'),
+                onTap: () {
+                  // Navigate to home screen
+                  Navigator.pushNamed(context, '/leaderboard');
+                },
+              ),
             ),
+            /*
             ListTile(
+              leading: const Icon(Icons.card_giftcard_rounded),
+              title: Text('Flashcards'),
+              onTap: () {
+                // Navigate to home screen
+                Navigator.pushNamed(context, '/flashcardSetting');
+              },
+            ),*/
+            Visibility(
+              visible: (userP?.displayName ?? '').isNotEmpty,
+              child: ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
+                onTap: () {
+                  // Navigate to profile screen
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserProfile(
+                            /* email: email,
+                          name: username,
+                          photoUrl: photo,
+                          level: level,*/
+                            ),
+                      ));
+                },
+              ),
+            ),
+            /* ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
               onTap: () {
                 // Navigate to settings screen
+                Navigator.pushNamed(context, '/noFormulaQuiz');
               },
-            ),
+            ),*/
             ListTile(
-              leading: Icon(Icons.home),
+              leading: Icon(Icons.call_rounded),
               title: Text('About Us'),
               onTap: () {
                 // Navigate to home screen

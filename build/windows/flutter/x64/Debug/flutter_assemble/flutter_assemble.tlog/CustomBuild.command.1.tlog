@@ -1,0 +1,28 @@
+^E:\FLUTTER PROJECTS\FLASH_ANZAN\BUILD\WINDOWS\CMAKEFILES\C8AA4789099711B06F1723B435BB5BAB\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env "FLUTTER_ROOT=E:\flutter projects\flutter" "PROJECT_DIR=E:\flutter projects\flash_anzan" "FLUTTER_ROOT=E:\flutter projects\flutter" "FLUTTER_EPHEMERAL_DIR=E:\flutter projects\flash_anzan\windows\flutter\ephemeral" "PROJECT_DIR=E:\flutter projects\flash_anzan" "FLUTTER_TARGET=E:\flutter projects\flash_anzan\lib\main.dart" DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false "PACKAGE_CONFIG=E:\flutter projects\flash_anzan\.dart_tool\package_config.json" "E:/flutter projects/flutter/packages/flutter_tools/bin/tool_backend.bat" windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\FLUTTER PROJECTS\FLASH_ANZAN\BUILD\WINDOWS\CMAKEFILES\BEB0A670981FC8B27F3D7977F46E485E\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\FLUTTER PROJECTS\FLASH_ANZAN\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SE:/flutter projects/flash_anzan/windows" "-BE:/flutter projects/flash_anzan/build/windows" --check-stamp-file "E:/flutter projects/flash_anzan/build/windows/flutter/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
