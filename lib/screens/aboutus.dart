@@ -29,7 +29,7 @@ class AboutUsPage extends StatelessWidget {
                 height: 300,
                 width: 200,
                 child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Flogo.png?alt=media&token=6cc8a95a-383a-4a32-a0d6-03c0206b747b'),
+                    'https://firebasestorage.googleapis.com/v0/b/abacusplusflash.appspot.com/o/asset%2Flogo.png?alt=media&token=fa3c5811-62d6-41d1-a5d9-5bacba2b9006'),
               ),
               SizedBox(height: 16.0),
               Text(

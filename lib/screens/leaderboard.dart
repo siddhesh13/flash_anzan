@@ -79,11 +79,13 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       ? FirebaseFirestore.instance
                           .collection('quizResults')
                           .orderBy('points', descending: true)
+                          .limit(15)
                           .snapshots()
                       : FirebaseFirestore.instance
                           .collection('quizResults')
                           .where('category', isEqualTo: _selectedCategory)
                           .orderBy('points', descending: true)
+                          .limit(15)
                           .snapshots(),
                   /*_selectedCategory == 'Overall' 
                   ? FirebaseFirestore.instance
@@ -95,7 +97,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
@@ -114,7 +116,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               }
 
                               UserModel user = UserModel.fromMap(snapshot.data!
@@ -257,7 +259,7 @@ class LeaderboardUser extends StatelessWidget {
           radius: 18,
           child: Text(
             (index + 1).toString(),
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
           ));
     }
@@ -266,7 +268,7 @@ class LeaderboardUser extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4),
         width: MediaQuery.of(context).size.width * 0.8,
         padding: const EdgeInsets.all(8),
-        constraints: BoxConstraints(maxWidth: 600),
+        //constraints: const BoxConstraints(maxWidth: 600),
         decoration: BoxDecoration(
           color: rankColor,
           borderRadius: BorderRadius.circular(20),
@@ -293,10 +295,11 @@ class LeaderboardUser extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0, right: 25),
+                        padding: const EdgeInsets.only(left: 5.0, right: 10),
                         child: crown,
                       ),
                     ),
+                    const SizedBox(width: 10),
                     /*Text(
                       '${index + 1}. ',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -305,111 +308,114 @@ class LeaderboardUser extends StatelessWidget {
                       backgroundImage: NetworkImage(avatarUrl),
                       radius: 20,
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           username,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
                         Text(
                           category,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                           ),
+                        ),
+                        const SizedBox(height: 3),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "Digits",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  digits,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 6),
+                            Column(
+                              children: [
+                                Text(
+                                  "Rows",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  "$rows",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 6),
+                            Column(
+                              children: [
+                                Text(
+                                  "Marks",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  "$marks/$questions",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 6),
+                            Column(
+                              children: [
+                                Text(
+                                  "Time",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  "$timeTaken",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ],
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          "Digits",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          "$digits",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 6),
-                    Column(
-                      children: [
-                        Text(
-                          "Rows",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          "$rows",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 6),
-                    Column(
-                      children: [
-                        Text(
-                          "Marks",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          "$marks/$questions",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 6),
-                    Column(
-                      children: [
-                        Text(
-                          "Time",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          "$timeTaken",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                const SizedBox(
+                  height: 10,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Center(
+                    const Center(
                       child: Icon(
                         FontAwesomeIcons.solidGem,
                         size: 22,

@@ -446,7 +446,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
         children: [
           Text(
             '${widget.title} Performance',
-            style: TextStyle(fontSize: 24, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           SizedBox(height: 10),
           Row(
@@ -454,11 +454,11 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
             children: [
               Text(
                 'Total Quiz: ${widget.totalEntries}',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
               Text(
                 'Total Questions: ${widget.totalQuestions}',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ],
           ),
@@ -467,12 +467,12 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Correct Answers: ${widget.correctAnswers}',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                'Accuracy: ${((widget.correctAnswers / widget.totalQuestions) * 100).toStringAsFixed(2)}%',
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
               Text(
-                'Accuracy: ${((widget.correctAnswers / widget.totalQuestions) * 100).toStringAsFixed(2)}%',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                'Correct Answers: ${widget.correctAnswers}',
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ],
           ),

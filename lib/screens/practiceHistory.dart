@@ -36,7 +36,7 @@ class _PracticeDetailsState extends State<PracticeDetailsPage> {
         title: const Text("Your Practice Details"),
       ),
       drawer: TrendingSidebar(
-         /* username: "name", email: "email", photo: "photo.com", level: "Level"*/),
+          /* username: "name", email: "email", photo: "photo.com", level: "Level"*/),
       body: Column(
         children: [
           Container(
@@ -199,7 +199,7 @@ class LeaderboardUser extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4),
         width: MediaQuery.of(context).size.width * 0.8,
         padding: const EdgeInsets.all(8),
-        constraints: const BoxConstraints(maxWidth: 600),
+        //constraints: const BoxConstraints(maxWidth: 600),
         decoration: BoxDecoration(
           color: rankColor,
           borderRadius: BorderRadius.circular(20),
@@ -227,119 +227,121 @@ class LeaderboardUser extends StatelessWidget {
                       '${index + 1}. ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    CircleAvatar(
+                    /*  CircleAvatar(
                       backgroundImage: NetworkImage(avatarUrl),
                       radius: 20,
-                    ),
+                    ),*/
                     const SizedBox(width: 16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        /*Text(
                           username,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        const SizedBox(height: 4),
+                        ),*/
+                        //const SizedBox(height: 4),
                         //Column(
                         // children: [
                         Text(
                           category,
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
+
                         Text(
                           currentPhoneDate,
                           style: const TextStyle(
                             fontSize: 12,
                           ),
                         ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "Digits",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  digits,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 6),
+                            Column(
+                              children: [
+                                Text(
+                                  "Rows",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  "$rows",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 6),
+                            Column(
+                              children: [
+                                Text(
+                                  "Marks",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  "$marks/$questions",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 6),
+                            Column(
+                              children: [
+                                Text(
+                                  "Time",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                                Text(
+                                  timeTaken,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: fontColor,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                         //],
                         //),
                       ],
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          "Digits",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          digits,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 6),
-                    Column(
-                      children: [
-                        Text(
-                          "Rows",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          "$rows",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 6),
-                    Column(
-                      children: [
-                        Text(
-                          "Marks",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          "$marks/$questions",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 6),
-                    Column(
-                      children: [
-                        Text(
-                          "Time",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                        Text(
-                          timeTaken,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fontColor,
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
                 Column(
